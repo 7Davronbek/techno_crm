@@ -1,4 +1,4 @@
-package com.example.texnocrm.user.entity;
+package com.example.texnocrm.product.entity;
 
 public enum Status {
     RECEIVED,

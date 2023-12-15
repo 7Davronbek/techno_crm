@@ -1,6 +1,5 @@
 package com.example.texnocrm.product.entity;
 
-import com.example.texnocrm.user.entity.Status;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,6 +7,8 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -38,4 +39,5 @@ public class Product {
     private String conclusions;
     private String indications;
     private String countingMechanism;
+//    private List<String> replacementComponent;
 }
