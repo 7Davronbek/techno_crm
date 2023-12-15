@@ -1,8 +1,8 @@
-package com.example.technocrm.client.entity;
+package com.example.technocrm.client.dto;
 
+import com.example.technocrm.client.entity.Status;
 import com.example.technocrm.doc.entity.Doc;
 import com.example.technocrm.tool.entity.Tool;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,14 +11,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class Client {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+@Data
+public class ClientCreateDto {
     private String phoneNumber;
     private String orgName;
     private String date;
@@ -41,18 +37,5 @@ public class Client {
     private String countingMechanism;
     private boolean isPaid;
 
-    private LocalDateTime createdAt;
-    @Enumerated(EnumType.STRING)
     private Status status;
-
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
-    private Set<Tool> tools;
-
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
-    private List<Doc> docs;
-
-//    @ManyToMany(mappedBy = "clients")
-//    private List<User> users;
-//    @ManyToOne
-//    private User user;
 }

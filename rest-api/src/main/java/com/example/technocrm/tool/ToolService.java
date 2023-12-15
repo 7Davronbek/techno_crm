@@ -1,11 +1,10 @@
 package com.example.technocrm.tool;
 
-import com.example.technocrm.client.entity.Client;
-import com.example.technocrm.client.entity.ClientRepository;
 import com.example.technocrm.tool.dto.ToolCreateDto;
 import com.example.technocrm.tool.dto.ToolDtoMapper;
 import com.example.technocrm.tool.dto.ToolResponseDto;
 import com.example.technocrm.tool.entity.Tool;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,15 +12,12 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ToolService {
     private final ToolRepository toolRepository;
     private final ToolDtoMapper toolDtoMapper;
-    private final ClientRepository clientRepository;
+    public void create(ToolCreateDto toolCreateDto) {
 
-    public void create(ToolCreateDto toolCreateDto, Integer userId) {
-        Client client = clientRepository
-                .findById(userId)
-                .orElseThrow();
         Tool tool = new Tool(
                 null,
                 toolCreateDto.getName(),
@@ -29,7 +25,7 @@ public class ToolService {
                 toolCreateDto.getCount(),
                 toolCreateDto.getArrivalTime(),
                 toolCreateDto.getPrice(),
-                client
+                null
         );
 
         toolRepository.save(tool);
@@ -52,8 +48,7 @@ public class ToolService {
                 tool.getCipherNumber(),
                 tool.getCount(),
                 tool.getArrivalTime(),
-                tool.getPrice(),
-                tool.getClient()
+                tool.getPrice()
         );
     }
 
@@ -65,7 +60,9 @@ public class ToolService {
 
         tool.setName(toolCreateDto.getName());
         tool.setCount(toolCreateDto.getCount());
-//        tool.setPrice();
+        tool.setPrice(toolCreateDto.getPrice());
+        tool.setArrivalTime(toolCreateDto.getArrivalTime());
+        tool.setCipherNumber(toolCreateDto.getCipherNumber());
 
     }
 

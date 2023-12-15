@@ -15,10 +15,9 @@ public class ToolController {
 
     @PostMapping
     public void create(
-            @RequestBody ToolCreateDto toolCreateDto,
-            @RequestHeader("userId") Integer userId
+            @RequestBody ToolCreateDto toolCreateDto
     ) {
-        toolService.create(toolCreateDto, userId);
+        toolService.create(toolCreateDto);
     }
 
     @GetMapping
