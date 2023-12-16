@@ -2,6 +2,7 @@ package com.example.technocrm.client;
 
 import com.example.technocrm.client.dto.*;
 import com.example.technocrm.client.entity.Client;
+import com.example.technocrm.tool.ToolRepository;
 import com.example.technocrm.tool.entity.Tool;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +18,13 @@ import java.util.Optional;
 @Transactional
 public class ClientService {
     private final ClientRepository clientRepository;
+    private final ToolRepository toolRepository;
     private final ClientDtoMapper clientDtoMapper;
 
     public void addTool(Integer clientId, ClientCreateToolDto clientCreateToolDto) {
         Client client = clientRepository.findById(clientId).orElseThrow();
+        List<Tool> toolList = toolRepository.findAllById(clientCreateToolDto.getToolIds());
+        toolList.forEach(tool -> tool.setClient(client));
     }
 
     public void create(ClientCreateDto createClientDto) {

@@ -22,5 +22,6 @@ public class Tool {
     private LocalDate arrivalTime;
     private Integer price;
     @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
 }

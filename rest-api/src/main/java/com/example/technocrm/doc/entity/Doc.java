@@ -19,5 +19,6 @@ public class Doc {
     private String imageUrl3;
     private String imageUrl4;
     @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
 }
