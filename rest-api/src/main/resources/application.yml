@@ -17,6 +17,8 @@ springdoc:
     path: /swagger-ui-custom.html
     operations-sorter: method
 
+
+
 spring:
   h2:
     console.enabled: true
