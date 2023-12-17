@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-client-table
+      author: maxmudovdavronbek8@gmail.com
+
+      changes:
+        - sqlFile:
+            path: db/changelog/changes/user/client/create-client.sql
+            stripComments: true

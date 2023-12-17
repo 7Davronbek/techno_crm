@@ -1,2 +1,17 @@
 databaseChangeLog:
-  - 
+
+#  - include:
+#      file: /changes/user/user/2023.12.18-create-user.yaml
+#      relativeToChangelogFile: true
+#
+#  - include:
+#      file: /changes/user/tool/2023.12.18-create-tool-table.yaml
+#      relativeToChangelogFile: true
+
+  - include:
+      file: /changes/user/doc/2023.12.18-create-doc-table.yaml
+      relativeToChangelogFile: true
+
+#  - include:
+#      file: /changes/user/client/2023.12.18-create-client-table.yaml
+#      relativeToChangelogFile: true

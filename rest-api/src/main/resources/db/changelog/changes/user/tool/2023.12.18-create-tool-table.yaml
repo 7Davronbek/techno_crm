@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-tool-table
+      author: maxmudovdavronbek8@gmail.com
+
+      changes:
+        - sqlFile:
+            path: db/changelog/changes/user/tool/create-tool.sql
+            stripComments: true

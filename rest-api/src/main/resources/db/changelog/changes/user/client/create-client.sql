@@ -1,0 +1,30 @@
+create table client
+(
+    act                  boolean not null,
+    correction_passport  boolean not null,
+    dd                   boolean not null,
+    dr                   boolean not null,
+    dt                   boolean not null,
+    emergency_situations boolean not null,
+    gas_passport         boolean not null,
+    id                   serial  not null,
+    is_paid              boolean not null,
+    last_verification    boolean not null,
+    mechanical_damage    boolean not null,
+    technical_condition  boolean not null,
+    visual_damage        boolean not null,
+    created_at           timestamp(6),
+    conclusions          varchar(255),
+    counting_mechanism   varchar(255),
+    date                 varchar(255),
+    indications          varchar(255),
+    mark                 varchar(255),
+    org_name             varchar(255),
+    phone_number         varchar(255),
+    serial_number        varchar(255),
+    status               varchar(255) check (status in
+                                             ('RECEIVER', 'SPECIALIST', 'ACCOUNTANT', 'PAYMENT', 'STAFF', 'TEST',
+                                              'DOCS', 'END')),
+    temperature          varchar(255),
+    primary key (id)
+)

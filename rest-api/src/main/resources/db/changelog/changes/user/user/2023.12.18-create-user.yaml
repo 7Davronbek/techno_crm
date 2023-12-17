@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-user-table
+      author: maxmudovdavronbek8@gmail.com
+
+      changes:
+        - sqlFile:
+            path: db/changelog/changes/user/user/create-user.sql
+            stripComments: true
