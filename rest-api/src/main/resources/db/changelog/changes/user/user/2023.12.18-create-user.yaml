@@ -4,6 +4,33 @@ databaseChangeLog:
       author: maxmudovdavronbek8@gmail.com
 
       changes:
-        - sqlFile:
-            path: db/changelog/changes/user/user/create-user.sql
-            stripComments: true
+        - createTable:
+            tableName: "user"
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: full_name
+                  type: VARCHAR(255)
+              - column:
+                  name: username
+                  type: VARCHAR(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: VARCHAR(255)
+
+#      changes:
+#        - sqlFile:
+#            path: db/changelog/changes/user/user/create-user.sql
+#            stripComments: true

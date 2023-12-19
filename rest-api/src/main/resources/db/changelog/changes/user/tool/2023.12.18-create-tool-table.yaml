@@ -3,7 +3,48 @@ databaseChangeLog:
       id: create-tool-table
       author: maxmudovdavronbek8@gmail.com
 
+#      changes:
+#        - sqlFile:
+#            path: db/changelog/changes/user/tool/create-tool.sql
+#            stripComments: true
+
       changes:
-        - sqlFile:
-            path: db/changelog/changes/user/tool/create-tool.sql
-            stripComments: true
+        - createTable:
+            tableName: tool
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: cipher_number
+                  type: VARCHAR(255)
+              - column:
+                  name: count
+                  type: INTEGER
+              - column:
+                  name: arrival_time
+                  type: DATE
+              - column:
+                  name: price
+                  type: INTEGER
+              - column:
+                  name: client_id
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+                  foreignKey:
+                    name: FK_tool_client_id
+                    constraintName: FK_tool_client_id
+                    referencedTableName: client
+                    referencedColumnNames:
+                      - id
+            indexes:
+              - index:
+                  name: IX_tool_client_id
+                  columns:
+                    - column: client_id

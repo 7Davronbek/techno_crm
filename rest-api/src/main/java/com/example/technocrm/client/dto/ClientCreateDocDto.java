@@ -10,5 +10,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClientCreateDocDto {
-    private List<Doc> docs;
+    private List<Integer> docs;
 }

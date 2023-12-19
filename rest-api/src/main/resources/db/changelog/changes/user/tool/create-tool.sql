@@ -7,10 +7,11 @@ create table tool
     price         integer,
     cipher_number varchar(255),
     name          varchar(255),
-    primary key (id)
+    primary key (id),
+    foreign key (client_id) references client
 )
 
-alter table if exists tool
-    add constraint FKq3w26hpijsrjy477m2ceecjgf
-    foreign key (client_id)
-    references client
+-- alter table if exists tool
+--     add constraint FKq3w26hpijsrjy477m2ceecjgf
+--     foreign key (client_id)
+--     references client

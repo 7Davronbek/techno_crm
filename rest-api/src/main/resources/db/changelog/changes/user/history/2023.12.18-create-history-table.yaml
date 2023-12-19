@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2023.12.18-create-history-table
+      author: your_author_name
+      changes:
+        - createTable:
+            tableName: history
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+              - column:
+                  name: client_id
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+                  foreignKey:
+                    name: FK_history_client_id
+                    constraintName: FK_history_client_id
+                    referencedTableName: client
+                    referencedColumnNames:
+                      - id
+              - column:
+                  name: user_id
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+                  foreignKey:
+                    name: FK_history_user_id
+                    constraintName: FK_history_user_id
+                    referencedTableName: "user"
+                    referencedColumnNames:
+                      - id

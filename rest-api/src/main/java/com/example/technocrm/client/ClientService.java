@@ -2,6 +2,8 @@ package com.example.technocrm.client;
 
 import com.example.technocrm.client.dto.*;
 import com.example.technocrm.client.entity.Client;
+import com.example.technocrm.doc.DocRepository;
+import com.example.technocrm.doc.entity.Doc;
 import com.example.technocrm.tool.ToolRepository;
 import com.example.technocrm.tool.entity.Tool;
 import jakarta.transaction.Transactional;
@@ -20,11 +22,18 @@ public class ClientService {
     private final ClientRepository clientRepository;
     private final ToolRepository toolRepository;
     private final ClientDtoMapper clientDtoMapper;
+    private final DocRepository docRepository;
 
     public void addTool(Integer clientId, ClientCreateToolDto clientCreateToolDto) {
         Client client = clientRepository.findById(clientId).orElseThrow();
         List<Tool> toolList = toolRepository.findAllById(clientCreateToolDto.getToolIds());
         toolList.forEach(tool -> tool.setClient(client));
+    }
+
+    public void addDoc(Integer userId, ClientCreateDocDto clientCreateDocDto) {
+        Client client = clientRepository.findById(userId).orElseThrow();
+        List<Doc> docList = docRepository.findAllById(clientCreateDocDto.getDocs());
+        docList.forEach(doc -> doc.setClient(client));
     }
 
     public void create(ClientCreateDto createClientDto) {

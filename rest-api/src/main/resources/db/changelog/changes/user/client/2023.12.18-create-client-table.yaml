@@ -7,3 +7,109 @@ databaseChangeLog:
         - sqlFile:
             path: db/changelog/changes/user/client/create-client.sql
             stripComments: true
+
+#      changes:
+#        - createTable:
+#            tableName: client
+#            columns:
+#              - column:
+#                  name: id
+#                  type: SERIAL
+#                  constraints:
+#                    primaryKey: true
+#              - column:
+#                  name: phone_number
+#                  type: VARCHAR(255)
+#              - column:
+#                  name: org_name
+#                  type: VARCHAR(255)
+#              - column:
+#                  name: date
+#                  type: VARCHAR(255)
+#              - column:
+#                  name: mark
+#                  type: VARCHAR(255)
+#              - column:
+#                  name: serial_number
+#                  type: VARCHAR(255)
+#              - column:
+#                  name: temperature
+#                  type: VARCHAR(255)
+#              - column:
+#                  name: last_verification
+#                  type: BOOLEAN
+#              - column:
+#                  name: gas_passport
+#                  type: BOOLEAN
+#              - column:
+#                  name: correction_passport
+#                  type: BOOLEAN
+#              - column:
+#                  name: act
+#                  type: BOOLEAN
+#              - column:
+#                  name: technical_condition
+#                  type: BOOLEAN
+#              - column:
+#                  name: dr
+#                  type: BOOLEAN
+#                  constraints:
+#                    name: CK_client_DR
+#                    check: "(dr IS TRUE AND dt IS TRUE AND dd IS TRUE) OR (dr IS FALSE AND dt IS FALSE AND dd IS FALSE)"
+#              - column:
+#                  name: dt
+#                  type: BOOLEAN
+#              - column:
+#                  name: dd
+#                  type: BOOLEAN
+#              - column:
+#                  name: emergency_situations
+#                  type: BOOLEAN
+#              - column:
+#                  name: visual_damage
+#                  type: BOOLEAN
+#              - column:
+#                  name: mechanical_damage
+#                  type: BOOLEAN
+#              - column:
+#                  name: conclusions
+#                  type: VARCHAR(255)
+#              - column:
+#                  name: indications
+#                  type: VARCHAR(255)
+#              - column:
+#                  name: counting_mechanism
+#                  type: VARCHAR(255)
+#              - column:
+#                  name: is_paid
+#                  type: BOOLEAN
+#              - column:
+#                  name: created_at
+#                  type: TIMESTAMP
+#              - column:
+#                  name: status
+#                  type: VARCHAR(255)
+#                  constraints:
+#                    check: "status IN ('RECEIVER', 'SPECIALIST', 'ACCOUNTANT', 'PAYMENT', 'STAFF', 'TEST', 'DOCS', 'END')"
+#            indexes:
+#              - index:
+#                  name: IX_client_status
+#                  columns:
+#                    - column: status
+#            foreignKeys:
+#              - foreignKey:
+#                  name: FK_client_status
+#                  constraintName: FK_client_status
+#                  referencedTableName: client
+#                  referencedColumnNames:
+#                    - id
+#                  baseColumnNames:
+#                    - status
+#            inverseForeignKey:
+#              name: FK_client_status
+#              constraintName: FK_client_status
+#              referencedTableName: client
+#              referencedColumnNames:
+#                - id
+#              baseTableNames:
+#                - client

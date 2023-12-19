@@ -1,9 +1,6 @@
 package com.example.technocrm.client;
 
-import com.example.technocrm.client.dto.ClientCreateToolDto;
-import com.example.technocrm.client.dto.ClientResponseDto;
-import com.example.technocrm.client.dto.ClientCreateDto;
-import com.example.technocrm.client.dto.ClientUpdateDto;
+import com.example.technocrm.client.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +12,19 @@ import java.util.List;
 public class ClientController {
     private final ClientService clientService;
 
-    @PostMapping("/tool/{userId}")
+    @PostMapping("/add-tool/{userId}")
     public void addTool(
             @PathVariable Integer userId,
             @RequestBody ClientCreateToolDto clientCreateToolDto
             ) {
         clientService.addTool(userId, clientCreateToolDto);
+    }
+    @PostMapping("/add-doc/{userId}")
+    public void addDoc(
+            @PathVariable Integer userId,
+            @RequestBody ClientCreateDocDto clientCreateDocDto
+    ) {
+        clientService.addDoc(userId, clientCreateDocDto);
     }
 
     @PostMapping

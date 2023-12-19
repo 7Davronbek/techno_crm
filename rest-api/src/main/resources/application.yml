@@ -3,13 +3,13 @@ spring:
     url: jdbc:postgresql://localhost:9000/techno_crm
     username: postgres
     password: postgres
-#  jpa:
-#    show-sql: true
-#    properties:
-#      hibernate:
-#        format_sql: true
-#    hibernate:
-#      ddl-auto: create-drop
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: create-drop
 springdoc:
   api-docs:
     path: /api-docs
