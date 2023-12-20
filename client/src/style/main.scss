@@ -1128,10 +1128,18 @@ body {
     td,
     th {
       padding: 14px;
+      vertical-align: middle;
     }
 
     tr {
       border-bottom: 1px solid rgba(0, 0, 0, 0.152);
+
+      &.notActive {
+
+        td, th {
+          background-color: #ff6e2e1c;
+        }
+      }
     }
 
     td {
@@ -2551,10 +2559,17 @@ body {
               td,
               th {
                 padding: 14px;
-              }
 
-              tr {
-                border-bottom: 1px solid rgba(0, 0, 0, 0.152);
+                tr {
+                  border-bottom: 1px solid rgba(0, 0, 0, 0.152);
+
+                  &.notActive {
+
+                    th {
+                      background-color: red;
+                    }
+                  }
+                }
               }
 
               td {
@@ -2891,7 +2906,6 @@ body {
 }
 
 
-
 .AdminLayout {
   .left {
     background-color: #333;
@@ -2902,6 +2916,36 @@ body {
 
     .icon {
       background-color: #fff;
+    }
+  }
+}
+
+.myModal {
+
+  .inputWrap {
+    position: relative;
+
+    .eye {
+      position: absolute !important;
+      top: 6px;
+      right: 13px;
+    }
+  }
+}
+
+.AdminTable {
+
+  tbody {
+
+    .btn-delete {
+      color: #000;
+      background: transparent;
+      border: 1px solid red !important;
+      margin-left: 6px;
+    }
+
+    .btn-update {
+      background: #0064ffd1;
     }
   }
 }

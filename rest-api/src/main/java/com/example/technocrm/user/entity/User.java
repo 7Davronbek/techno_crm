@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -24,6 +25,8 @@ public class User {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
+    private LocalDate created;
+    private boolean isActive;
 
 //    @ManyToMany
 //    @JoinTable(

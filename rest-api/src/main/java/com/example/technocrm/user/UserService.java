@@ -3,11 +3,13 @@ package com.example.technocrm.user;
 import com.example.technocrm.user.dto.UserCreateDto;
 import com.example.technocrm.user.dto.UserDtoMapper;
 import com.example.technocrm.user.dto.UserResponseDto;
+import com.example.technocrm.user.dto.UserUpdateDto;
 import com.example.technocrm.user.entity.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -24,7 +26,9 @@ public class UserService {
                 userCreateDto.getFullName(),
                 userCreateDto.getUsername(),
                 userCreateDto.getPassword(),
-                userCreateDto.getRole()
+                userCreateDto.getRole(),
+                LocalDate.now(),
+                true
         );
 
         userRepository.save(user);
@@ -44,11 +48,13 @@ public class UserService {
                 userId,
                 user.getFullName(),
                 user.getUsername(),
-                user.getRole()
+                user.getRole(),
+                user.getCreated(),
+                user.isActive()
         );
     }
 
-    public void update(Integer userId, UserCreateDto userCreateDto) {
+    public void update(Integer userId, UserUpdateDto userCreateDto) {
 
         User user = userRepository
                 .findById(userId)
@@ -57,7 +63,8 @@ public class UserService {
         user.setRole(userCreateDto.getRole());
         user.setUsername(userCreateDto.getUsername());
         user.setFullName(userCreateDto.getFullName());
-        user.setPassword(userCreateDto.getPassword());
+//        user.setPassword(userCreateDto.getPassword());
+        user.setActive(userCreateDto.isActive());
 
     }
 

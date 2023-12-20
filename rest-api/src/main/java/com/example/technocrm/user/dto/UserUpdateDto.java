@@ -5,16 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResponseDto {
-    private Integer id;
+public class UserUpdateDto {
     private String fullName;
     private String username;
+//    private String password;
     private Role role;
-    private LocalDate created;
     private boolean isActive;
 }

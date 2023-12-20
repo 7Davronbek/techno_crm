@@ -2,6 +2,7 @@ package com.example.technocrm.user;
 
 import com.example.technocrm.user.dto.UserCreateDto;
 import com.example.technocrm.user.dto.UserResponseDto;
+import com.example.technocrm.user.dto.UserUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    public void update(@PathVariable Integer userId, @RequestBody UserCreateDto userCreateDto) {
+    public void update(@PathVariable Integer userId, @RequestBody UserUpdateDto userCreateDto) {
         userService.update(userId, userCreateDto);
     }
 
