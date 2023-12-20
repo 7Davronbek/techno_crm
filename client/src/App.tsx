@@ -1,9 +1,18 @@
 import {HashRouter, Route, Routes} from "react-router-dom";
-import {AdminDocumentation, AdminLayout, AdminMonitoring, AdminTool, AdminUser, Main} from "./pages";
+import {
+    AdminDocumentation,
+    AdminLayout,
+    AdminMonitoring,
+    AdminTool,
+    AdminUser,
+    Main,
+    ReceiverLayout,
+    ReceiverUser
+} from "./pages";
 import {ToastContainer} from "react-toastify";
 
 function App() {
-    const userRole = "ADMIN";
+    const userRole = "ROLE_RECEIVER";
     return (
         <>
             <HashRouter>
@@ -16,6 +25,14 @@ function App() {
                                 <Route path="/admin-user" element={<AdminUser/>}/>
                                 <Route path="/admin-documentation" element={<AdminDocumentation/>}/>
                                 <Route path="/admin-tool" element={<AdminTool/>}/>
+                            </Route>
+                        </>
+                    )}
+
+                    {userRole === "ROLE_RECEIVER" && (
+                        <>
+                            <Route element={<ReceiverLayout/>}>
+                                <Route path="/receiver-client" element={<ReceiverUser/>}/>
                             </Route>
                         </>
                     )}

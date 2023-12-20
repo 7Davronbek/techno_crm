@@ -125,12 +125,12 @@ const AdminUser = () => {
             <div className="AdminUser RightStyle">
                 <div className="cards">
                     <div className="btnWrap">
-                        <h1>Пользователи</h1>
+                        <h1>Users</h1>
                         <button onClick={() => setIsOpen(true)} className="btn myBtn">
             <span>
               <img src={plus} alt=""/>
             </span>
-                            Добавить клиент
+                            Add User
                         </button>
                     </div>
                     <div className="cards mt-5">

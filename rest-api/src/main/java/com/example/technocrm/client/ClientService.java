@@ -2,6 +2,7 @@ package com.example.technocrm.client;
 
 import com.example.technocrm.client.dto.*;
 import com.example.technocrm.client.entity.Client;
+import com.example.technocrm.client.entity.Status;
 import com.example.technocrm.doc.DocRepository;
 import com.example.technocrm.doc.entity.Doc;
 import com.example.technocrm.tool.ToolRepository;
@@ -60,9 +61,10 @@ public class ClientService {
                 createClientDto.getConclusions(),
                 createClientDto.getIndications(),
                 createClientDto.getCountingMechanism(),
+
                 false,
                 LocalDateTime.now(),
-                createClientDto.getStatus(),
+                Status.SPECIALIST,
                 Collections.emptySet(),
                 Collections.emptyList()
         );

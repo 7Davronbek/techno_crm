@@ -37,5 +37,5 @@ public class ClientCreateDto {
     private String countingMechanism;
     private boolean isPaid;
 
-    private Status status;
+//    private Status status;
 }
