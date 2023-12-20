@@ -4,10 +4,10 @@ export default interface IUserType {
     username: string,
     password: string,
     role: IUserRole,
-    created?:  string,
+    created?: string,
     active?: boolean
 }
 
 export enum IUserRole {
-    ROLE_ADMIN, ROLE_USER
+    ROLE_ADMIN, ROLE_RECEIVER, ROLE_SPECIALIST, ROLE_ACCOUNTANT, ROLE_STAFF, ROLE_STANDARD
 }

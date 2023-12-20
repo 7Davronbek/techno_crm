@@ -1,7 +1,7 @@
 import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import logo from "@/assets/logo.svg";
 import logout from "@/assets/logout.svg";
-import {TOKEN, USER_ROLE} from "../../../constants";
+import {TOKEN, USER_ROLE} from "@/constants";
 import MonitoringNavbar from "../../../components/MonitoringLayout.tsx";
 
 const AdminLayout = () => {

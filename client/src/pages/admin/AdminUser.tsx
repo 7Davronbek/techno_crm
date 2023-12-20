@@ -62,21 +62,21 @@ const AdminUser = () => {
                 setIsUser(false)
                 toast.error(e);
             });
-    }
+        }
 
-    const getAllUsers = async () => {
-        setIsUser(true)
-        await UserService
-            .getAll()
-            .then((res) => {
-                setIsUser(false)
-                return setUsers(res.data);
-            })
-            .catch((e: Error) => {
-                setIsUser(false)
-                toast.error(e);
-            });
-    }
+        const getAllUsers = async () => {
+            setIsUser(true)
+            await UserService
+                .getAll()
+                .then((res) => {
+                    setIsUser(false)
+                    return setUsers(res.data);
+                })
+                .catch((e: Error) => {
+                    setIsUser(false)
+                    toast.error(e);
+                });
+        }
 
     const updateUser = async (user: IUserType, id: number | undefined) => {
         setIsUser(true)
@@ -133,63 +133,63 @@ const AdminUser = () => {
                             Добавить клиент
                         </button>
                     </div>
-                </div>
-            </div>
-
-            <div className="cards">
-                <div className="myTable " style={{height: 400, width: "100%"}}>
-                    {isUser ? (
-                        <Loader/>
-                    ) : (
-                        <table className="table TableStyle AdminTable">
-                            <thead>
-                            <tr>
-                                <td>№</td>
-                                <td>Username</td>
-                                <td>Full Name</td>
-                                <td>Created Date</td>
-                                <td>Role</td>
-                                <td>Action</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {users &&
-                                users.map((item: IUserType, index: number) => (
-                                    <tr
-                                        key={item.id}
-                                        // onClick={() => {
-                                        //     getSingleOrder(item.id);
-                                        // }}
-                                        className={`${item.active ? "active" : "notActive"}`}
-                                    >
-                                        <th>{index + 1}</th>
-                                        <td>@{item.username}</td>
-                                        <td>{item.fullName}</td>
-                                        <td>{item.created}</td>
-                                        <td>{item.role}</td>
-                                        <td>
-                                            <button onClick={() => handleModal(item)}
-                                                    className="btn myBtn btn-update">Update
-                                            </button>
-                                            <button onClick={() => handleDelete(item.id)}
-                                                    className="btn myBtn btn-delete">Delete
-                                            </button>
-                                        </td>
+                    <div className="cards mt-5">
+                        <div className="myTable " style={{height: 400, width: "100%"}}>
+                            {isUser ? (
+                                <Loader/>
+                            ) : (
+                                <table className="table TableStyle AdminTable">
+                                    <thead>
+                                    <tr>
+                                        <td>№</td>
+                                        <td>Username</td>
+                                        <td>Full Name</td>
+                                        <td>Created Date</td>
+                                        <td>Role</td>
+                                        <td>Action</td>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    )}
+                                    </thead>
+                                    <tbody>
+                                    {users &&
+                                        users.map((item: IUserType, index: number) => (
+                                            <tr
+                                                key={item.id}
+                                                // onClick={() => {
+                                                //     getSingleOrder(item.id);
+                                                // }}
+                                                className={`${item.active ? "active" : "notActive"}`}
+                                            >
+                                                <th>{index + 1}</th>
+                                                <td>@{item.username}</td>
+                                                <td>{item.fullName}</td>
+                                                <td>{item.created}</td>
+                                                <td>{item.role}</td>
+                                                <td>
+                                                    <button onClick={() => handleModal(item)}
+                                                            className="btn myBtn btn-update">Update
+                                                    </button>
+                                                    <button onClick={() => handleDelete(item.id)}
+                                                            className="btn myBtn btn-delete">Delete
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            )}
 
-                    {/*<DataGrid*/}
-                    {/*    rows={rows}*/}
-                    {/*    columns={columns}*/}
-                    {/*    pageSize={5}*/}
-                    {/*    rowsPerPageOptions={[5]}*/}
-                    {/*    disableSelectionOnClick*/}
-                    {/*/>*/}
+                            {/*<DataGrid*/}
+                            {/*    rows={rows}*/}
+                            {/*    columns={columns}*/}
+                            {/*    pageSize={5}*/}
+                            {/*    rowsPerPageOptions={[5]}*/}
+                            {/*    disableSelectionOnClick*/}
+                            {/*/>*/}
+                        </div>
+                    </div>
                 </div>
             </div>
+
 
             {isOpen && (
                 <div className={`myModal ModalStyle ${isOpen && "active"}`}>

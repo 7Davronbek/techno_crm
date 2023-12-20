@@ -1,5 +1,5 @@
 import {HashRouter, Route, Routes} from "react-router-dom";
-import {AdminLayout, AdminMonitoring, AdminUser, Main} from "./pages";
+import {AdminDocumentation, AdminLayout, AdminMonitoring, AdminTool, AdminUser, Main} from "./pages";
 import {ToastContainer} from "react-toastify";
 
 function App() {
@@ -14,6 +14,8 @@ function App() {
                             <Route element={<AdminLayout/>}>
                                 <Route path="/admin-monitoring" element={<AdminMonitoring/>}/>
                                 <Route path="/admin-user" element={<AdminUser/>}/>
+                                <Route path="/admin-documentation" element={<AdminDocumentation/>}/>
+                                <Route path="/admin-tool" element={<AdminTool/>}/>
                             </Route>
                         </>
                     )}
