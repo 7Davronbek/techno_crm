@@ -1,8 +1,6 @@
 package com.example.technocrm.user;
 
-import com.example.technocrm.user.dto.UserCreateDto;
-import com.example.technocrm.user.dto.UserResponseDto;
-import com.example.technocrm.user.dto.UserUpdateDto;
+import com.example.technocrm.user.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,14 +12,23 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
+    @PostMapping("/login")
+    public LoginResponseDto login(@RequestBody LoginDto loginDto) {
+        return userService.login(loginDto);
+    }
+
+
     @PostMapping
-    public void create(@RequestBody UserCreateDto userCreateDto) {
-        userService.create(userCreateDto);
+    public void create(
+            @RequestBody UserCreateDto userCreateDto,
+            @RequestHeader Integer id
+    ) {
+        userService.create(userCreateDto, id);
     }
 
     @GetMapping
-    public List<UserResponseDto> getAll() {
-        return userService.getAll();
+    public List<UserResponseDto> getAll(@RequestHeader Integer id) {
+        return userService.getAll(id);
     }
 
     @GetMapping("/{userId}")
@@ -35,7 +42,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{userId}")
-    public void delete(@PathVariable Integer userId) {
-        userService.delete(userId);
+    public void delete(@PathVariable Integer userId, @RequestHeader Integer id) {
+        userService.delete(userId, id);
     }
 }

@@ -12,13 +12,13 @@ import {
 import {ToastContainer} from "react-toastify";
 
 function App() {
-    const userRole = "ROLE_RECEIVER";
+    const userRole = "ROLE_ADMIN";
     return (
         <>
             <HashRouter>
                 <Routes>
                     <Route path="/" element={<Main/>}/>
-                    {userRole === "ADMIN" && (
+                    {userRole === "ROLE_ADMIN" && (
                         <>
                             <Route element={<AdminLayout/>}>
                                 <Route path="/admin-monitoring" element={<AdminMonitoring/>}/>
@@ -36,6 +36,7 @@ function App() {
                             </Route>
                         </>
                     )}
+
                     <Route path="*" element={<Main/>}/>
                 </Routes>
                 <ToastContainer/>

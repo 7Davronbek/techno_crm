@@ -6,5 +6,6 @@ public enum Role {
     ROLE_SPECIALIST,
     ROLE_ACCOUNTANT,
     ROLE_STAFF,
-    ROLE_STANDARD
+    ROLE_STANDARD,
+    ROLE_CLIENT
 }

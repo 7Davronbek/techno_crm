@@ -1,4 +1,5 @@
 import plus from "@/assets/plus.svg";
+import {CONFIG} from "@/constants"
 // import document from "@/assets/document.svg";
 import closeEye from "@/assets/closeEye.svg";
 import openEye from "@/assets/opneEye.svg";

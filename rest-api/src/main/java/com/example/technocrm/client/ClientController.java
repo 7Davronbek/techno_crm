@@ -12,19 +12,38 @@ import java.util.List;
 public class ClientController {
     private final ClientService clientService;
 
+//    @PostMapping("/accountant/{userId}")
+//    public void accountant(
+//            @PathVariable Integer userId,
+//            @RequestHeader Integer id
+//    ) {
+//        clientService.accountant(userId, id);
+//    }
+
+    @PostMapping("/staff")
+    public void accountant(
+            @RequestBody Boolean isActive,
+            @RequestHeader Integer id
+    ) {
+        clientService.staff(isActive,id);
+    }
+
     @PostMapping("/add-tool/{userId}")
     public void addTool(
             @PathVariable Integer userId,
-            @RequestBody ClientCreateToolDto clientCreateToolDto
-            ) {
-        clientService.addTool(userId, clientCreateToolDto);
+            @RequestBody ClientCreateToolDto clientCreateToolDto,
+            @RequestHeader Integer id
+    ) {
+        clientService.addTool(userId, clientCreateToolDto, id);
     }
+
     @PostMapping("/add-doc/{userId}")
     public void addDoc(
             @PathVariable Integer userId,
-            @RequestBody ClientCreateDocDto clientCreateDocDto
+            @RequestBody ClientCreateDocDto clientCreateDocDto,
+            @RequestHeader Integer id
     ) {
-        clientService.addDoc(userId, clientCreateDocDto);
+        clientService.addDoc(userId, clientCreateDocDto, id);
     }
 
     @PostMapping

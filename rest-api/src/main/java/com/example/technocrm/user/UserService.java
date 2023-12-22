@@ -1,15 +1,14 @@
 package com.example.technocrm.user;
 
-import com.example.technocrm.user.dto.UserCreateDto;
-import com.example.technocrm.user.dto.UserDtoMapper;
-import com.example.technocrm.user.dto.UserResponseDto;
-import com.example.technocrm.user.dto.UserUpdateDto;
+import com.example.technocrm.custom.CustomConfig;
+import com.example.technocrm.user.dto.*;
 import com.example.technocrm.user.entity.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -18,24 +17,31 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
     private final UserDtoMapper userDtoMapper;
+    private final CustomConfig customConfig;
 
-    public void create(UserCreateDto userCreateDto) {
+    public void create(UserCreateDto userCreateDto, Integer id) {
+        if (customConfig.isAdmin(id) || customConfig.isReceiver(id)) {
 
-        User user = new User(
-                null,
-                userCreateDto.getFullName(),
-                userCreateDto.getUsername(),
-                userCreateDto.getPassword(),
-                userCreateDto.getRole(),
-                LocalDate.now(),
-                true
-        );
+            User user = new User(
+                    null,
+                    userCreateDto.getFullName(),
+                    userCreateDto.getUsername(),
+                    userCreateDto.getPassword(),
+                    userCreateDto.getRole(),
+                    LocalDate.now(),
+                    true
+            );
 
-        userRepository.save(user);
+            userRepository.save(user);
+
+        }
     }
 
-    public List<UserResponseDto> getAll() {
-        return userDtoMapper.toResponse(userRepository.findAll());
+    public List<UserResponseDto> getAll(Integer id) {
+        if(customConfig.isAdmin(id)) {
+            return userDtoMapper.toResponse(userRepository.findAll());
+        }
+        return Collections.emptyList();
     }
 
     public UserResponseDto get(Integer userId) {
@@ -68,7 +74,20 @@ public class UserService {
 
     }
 
-    public void delete(Integer userId) {
-        userRepository.deleteById(userId);
+    public void delete(Integer userId, Integer id) {
+        if (customConfig.isAdmin(id)) {
+            userRepository.deleteById(userId);
+        }
+    }
+
+    public LoginResponseDto login(LoginDto loginDto) {
+        User user = userRepository.findUserByUsername(loginDto.getUsername()).orElseThrow();
+        return new LoginResponseDto(
+                user.getId(),
+                user.getFullName(),
+                user.getUsername(),
+                user.getRole(),
+                user.getCreated()
+        );
     }
 }

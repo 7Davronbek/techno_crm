@@ -3,6 +3,7 @@ package com.example.technocrm.client;
 import com.example.technocrm.client.dto.*;
 import com.example.technocrm.client.entity.Client;
 import com.example.technocrm.client.entity.Status;
+import com.example.technocrm.custom.CustomConfig;
 import com.example.technocrm.doc.DocRepository;
 import com.example.technocrm.doc.entity.Doc;
 import com.example.technocrm.tool.ToolRepository;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -24,17 +26,35 @@ public class ClientService {
     private final ToolRepository toolRepository;
     private final ClientDtoMapper clientDtoMapper;
     private final DocRepository docRepository;
+    private final CustomConfig customConfig;
 
-    public void addTool(Integer clientId, ClientCreateToolDto clientCreateToolDto) {
-        Client client = clientRepository.findById(clientId).orElseThrow();
-        List<Tool> toolList = toolRepository.findAllById(clientCreateToolDto.getToolIds());
-        toolList.forEach(tool -> tool.setClient(client));
+//    public void accountant(Integer userId, Integer id) {
+//        if (customConfig.isAdmin(id) || customConfig.isAccountant(id)) {
+//            Client client = clientRepository
+//                    .findById(userId)
+//                    .orElseThrow();
+//
+//            Status status = client.isPaid() ? Status.STAFF : Status.PAYMENT;
+//            client.setStatus(status);
+//        }
+//    }
+
+    public void addTool(Integer clientId, ClientCreateToolDto clientCreateToolDto, Integer id) {
+        if (customConfig.isAdmin(id) || customConfig.isAccountant(id)) {
+            Client client = clientRepository.findById(clientId).orElseThrow();
+            List<Tool> toolList = toolRepository.findAllById(clientCreateToolDto.getToolIds());
+            toolList.forEach(tool -> tool.setClient(client));
+            client.setStatus(Status.PAYMENT);
+        }
     }
 
-    public void addDoc(Integer userId, ClientCreateDocDto clientCreateDocDto) {
-        Client client = clientRepository.findById(userId).orElseThrow();
-        List<Doc> docList = docRepository.findAllById(clientCreateDocDto.getDocs());
-        docList.forEach(doc -> doc.setClient(client));
+    public void addDoc(Integer userId, ClientCreateDocDto clientCreateDocDto, Integer id) {
+        if (customConfig.isAdmin(id) || customConfig.isStandard(id)) {
+            Client client = clientRepository.findById(userId).orElseThrow();
+            List<Tool> docsList = toolRepository.findAllById(clientCreateDocDto.getDocs());
+            docsList.forEach(doc -> doc.setClient(client));
+            client.setStatus(Status.END);
+        }
     }
 
     public void create(ClientCreateDto createClientDto) {
@@ -62,7 +82,7 @@ public class ClientService {
                 createClientDto.getIndications(),
                 createClientDto.getCountingMechanism(),
 
-                false,
+                createClientDto.isPaid(),
                 LocalDateTime.now(),
                 Status.SPECIALIST,
                 Collections.emptySet(),
@@ -113,5 +133,13 @@ public class ClientService {
 
     public void delete(Integer clientId) {
         clientRepository.deleteById(clientId);
+    }
+
+    public void staff(Boolean isActive, Integer id) {
+        if (customConfig.isStandard(id) || customConfig.isStaff(id)) {
+            Client client = clientRepository.findById(id).orElseThrow();
+            Status status = isActive ? Status.DOCS : Status.END;
+            client.setStatus(status);
+        }
     }
 }

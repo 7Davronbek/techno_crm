@@ -6,7 +6,7 @@ public enum Status {
     ACCOUNTANT,
     PAYMENT,
     STAFF,
-    TEST,
+//    TEST,
     DOCS,
     END
 }
