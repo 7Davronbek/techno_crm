@@ -16,27 +16,27 @@ public class DocController {
     private final DocService docService;
 
     @PostMapping
-    public void create(@RequestBody DocCreateDto docCreateDto) {
-        docService.create(docCreateDto);
+    public void create(@RequestBody DocCreateDto docCreateDto, @RequestHeader Integer id) {
+        docService.create(docCreateDto, id);
     }
 
     @GetMapping
-    public List<DocResponseDto> getAll() {
-        return docService.getAll();
+    public List<DocResponseDto> getAll(@RequestHeader Integer id) {
+        return docService.getAll(id);
     }
 
     @GetMapping("/{docId}")
-    public DocResponseDto get(@PathVariable Integer docId) {
-        return docService.get(docId);
+    public DocResponseDto get(@PathVariable Integer docId, @RequestHeader Integer id) {
+        return docService.get(docId, id);
     }
 
     @PutMapping("/{docId}")
-    public void update(@PathVariable Integer docId, @RequestBody DocCreateDto docCreateDto) {
-        docService.update(docId, docCreateDto);
+    public void update(@PathVariable Integer docId, @RequestBody DocCreateDto docCreateDto, @RequestHeader Integer id) {
+        docService.update(docId, docCreateDto, id);
     }
 
     @DeleteMapping("/{docId}")
-    public void delete(@PathVariable Integer docId) {
-        docService.delete(docId);
+    public void delete(@PathVariable Integer docId, @RequestHeader Integer id) {
+        docService.delete(docId, id);
     }
 }

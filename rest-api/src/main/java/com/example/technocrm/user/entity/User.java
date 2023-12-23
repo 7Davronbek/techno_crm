@@ -1,6 +1,7 @@
 package com.example.technocrm.user.entity;
 
 import com.example.technocrm.client.entity.Client;
+import com.example.technocrm.client.entity.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,6 +27,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
     private LocalDate created;
+    private Status status;
     private boolean isActive;
 
 //    @ManyToMany

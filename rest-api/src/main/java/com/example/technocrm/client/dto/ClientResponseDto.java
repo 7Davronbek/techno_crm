@@ -35,6 +35,7 @@ public class ClientResponseDto {
     private String conclusions;
     private String indications;
     private String countingMechanism;
+    private boolean isPaid;
 
     private LocalDateTime createdAt;
     private Status status;

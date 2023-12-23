@@ -3,7 +3,7 @@ export default interface IUserType {
     fullName: string,
     username: string,
     password: string,
-    role: IUserRole,
+    role: string,
     created?: string,
     active?: boolean
 }

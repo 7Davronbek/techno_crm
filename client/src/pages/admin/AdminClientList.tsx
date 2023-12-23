@@ -7,7 +7,7 @@ import {Loader} from "../../components/Loader.tsx";
 import ClientService from "../../service/ClientService.ts";
 import IClientType from "../../types/IClientType.ts";
 
-const ReceiverClient = () => {
+const AdminClientList = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isUser, setIsUser] = useState<boolean>(false);
@@ -231,7 +231,7 @@ const ReceiverClient = () => {
     const getAllClients = async () => {
         setIsUser(true)
         await ClientService
-            .getAllReceiver()
+            .getAll()
             .then((res) => {
                 setIsUser(false)
                 return setClients(res.data);
@@ -637,4 +637,4 @@ const ReceiverClient = () => {
     );
 };
 
-export default ReceiverClient;
+export default AdminClientList;

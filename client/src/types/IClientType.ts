@@ -3,14 +3,15 @@ export default interface IClientType {
     phoneNumber: string, //
     orgName: string,//
     date: string,//
-    mark: string,
+    // mark: string,
     serialNumber: string,//
     temperature: string,//
     conclusions: string, //
     indications:string,//
     countingMechanism: string, //
+    status?: string,
 
-    isPaid: boolean,
+    paid: boolean,
     lastVerification: boolean,
     gasPassport: boolean,
     correctionPassport: boolean,

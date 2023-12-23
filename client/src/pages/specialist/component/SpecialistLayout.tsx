@@ -2,9 +2,9 @@ import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import logo from "@/assets/logo.svg";
 import logout from "@/assets/logout.svg";
 import {TOKEN, USER_ROLE} from "@/constants/index.js";
-import MonitoringNavbar from "../../../components/MonitoringLayout.tsx";
+import MonitoringNavbar from "@/components/MonitoringLayout.tsx";
 
-const ReceiverLayout = () => {
+const SpecialistLayout = () => {
     const location: void = useLocation();
     const navigate: void = useNavigate();
     const logOut = () => {
@@ -22,12 +22,20 @@ const ReceiverLayout = () => {
                         </Link>
                         <Link
                             className={`link ${
-                                location.pathname === "/receiver-client" && "active"
+                                location.pathname === "/specialist-client" && "active"
                             }`}
-                            to="/receiver-client"
+                            to="/specialist-client"
                         >
                             <span className="icon icon-list"></span>Список клиентов
                         </Link>
+                        {/*<Link*/}
+                        {/*    className={`link ${*/}
+                        {/*        location.pathname === "/add-user" && "active"*/}
+                        {/*    }`}*/}
+                        {/*    to="/add-user"*/}
+                        {/*>*/}
+                        {/*    <span className="icon icon-user"></span>Добавить пользователя*/}
+                        {/*</Link>*/}
                         {/*<Link*/}
                         {/*    className={`link ${*/}
                         {/*        location.pathname === "/client-history" && "active"*/}
@@ -44,14 +52,6 @@ const ReceiverLayout = () => {
                         {/*>*/}
                         {/*    <span className="icon icon-doc"></span>Документация*/}
                         {/*</Link>*/}
-                        <Link
-                            className={`link ${
-                                location.pathname === "/add-user" && "active"
-                            }`}
-                            to="/add-user"
-                        >
-                            <span className="icon icon-user"></span>Добавить пользователя
-                        </Link>
                     </div>
                     <button onClick={logOut} className="btn">
             <span>
@@ -69,4 +69,4 @@ const ReceiverLayout = () => {
     );
 };
 
-export default ReceiverLayout;
+export default SpecialistLayout;

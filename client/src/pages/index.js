@@ -5,6 +5,7 @@ export {default as AdminUser} from "./admin/AdminUser.tsx"
 export {default as AdminDocumentation} from "./admin/AdminDocumentation.tsx"
 export {default as AdminTool} from "./admin/AdminTool.tsx"
 export {default as AdminProfile} from "./admin/AdminProfile.tsx"
+export {default as AdminClientList} from "./admin/AdminClientList.tsx"
 export {default as AdminLayout} from "./admin/components/AdminLayout.tsx"
 
 export {default as ReceiverUser} from "./receiver/ReceiverClient.tsx"

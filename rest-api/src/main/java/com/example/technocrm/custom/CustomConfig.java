@@ -46,13 +46,13 @@ public class CustomConfig {
         return user.getRole().equals(Role.ROLE_ACCOUNTANT);
     }
 
-    @Transactional
-    public boolean isStaff(Integer id) {
-        User user = userRepository
-                .findById(id)
-                .orElseThrow(NoSuchElementException::new);
-        return user.getRole().equals(Role.ROLE_STAFF);
-    }
+//    @Transactional
+//    public boolean isStaff(Integer id) {
+//        User user = userRepository
+//                .findById(id)
+//                .orElseThrow(NoSuchElementException::new);
+//        return user.getRole().equals(Role.ROLE_STAFF);
+//    }
 
     @Transactional
     public boolean isStandard(Integer id) {
@@ -60,5 +60,13 @@ public class CustomConfig {
                 .findById(id)
                 .orElseThrow(NoSuchElementException::new);
         return user.getRole().equals(Role.ROLE_STANDARD);
+    }
+
+    @Transactional
+    public boolean isDoc(Integer id) {
+        User user = userRepository
+                .findById(id)
+                .orElseThrow(NoSuchElementException::new);
+        return user.getRole().equals(Role.ROLE_DOC);
     }
 }

@@ -1,4 +1,6 @@
 import plus from "@/assets/plus.svg";
+import updateIcon from "@/assets/update.svg"
+import deleteIcon from "@/assets/delete.svg"
 import {Loader} from "../../components/Loader.tsx";
 import {ChangeEvent, useEffect, useState} from "react";
 import {toast} from "react-toastify";
@@ -16,18 +18,10 @@ const AdminTool = () => {
     const [count, setCount] = useState<number>(1)
     const [price, setPrice] = useState<number>(0)
     const [arrivalTime, setArrivalTime] = useState<string>("")
-    const [id, setId] = useState<string>("")
+    const [id, setId] = useState<number>()
 
     const [tools, setTools] = useState<IToolType[]>([]);
 
-    const handleClose = () => {
-        setIsOpen(false);
-        setName("")
-        setCipherNumber("")
-        setCount(1)
-        setPrice(0)
-        setArrivalTime("")
-    }
 
     const createTool = async (e: { preventDefault: () => void; }) => {
 
@@ -47,6 +41,7 @@ const AdminTool = () => {
 
                 setIsLoading(false)
                 setIsOpen(false)
+                setIsUpdate(false);
 
                 getAllTools()
                 toast.success("Tool created")
@@ -108,6 +103,16 @@ const AdminTool = () => {
         setCount(item.count)
         setCipherNumber(item.cipherNumber)
         setId(item.id)
+    }
+
+    const handleClose = () => {
+        setIsUpdate(false);
+        setIsOpen(false);
+        setName("")
+        setCipherNumber("")
+        setCount(1)
+        setPrice(0)
+        setArrivalTime("")
     }
 
     const getAllTools = async () => {
@@ -176,11 +181,11 @@ const AdminTool = () => {
                                                 <td>
                                                     <button
                                                         onClick={() => handleOpenModal(item)}
-                                                        className="btn myBtn btn-update">Update
+                                                        className="btn "><img src={updateIcon} alt=""/>
                                                     </button>
                                                     <button
                                                         onClick={() => deleteTool(item.id)}
-                                                        className="btn myBtn btn-delete">Delete
+                                                        className="btn "><img src={deleteIcon} alt=""/>
                                                     </button>
                                                 </td>
                                             </tr>

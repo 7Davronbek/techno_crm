@@ -1,5 +1,6 @@
 package com.example.technocrm.user.dto;
 
+import com.example.technocrm.client.entity.Status;
 import com.example.technocrm.user.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,5 +17,6 @@ public class UserResponseDto {
     private String username;
     private Role role;
     private LocalDate created;
+    private Status status;
     private boolean isActive;
 }

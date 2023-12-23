@@ -7,7 +7,7 @@ import {Loader} from "../../components/Loader.tsx";
 import ClientService from "../../service/ClientService.ts";
 import IClientType from "../../types/IClientType.ts";
 
-const ReceiverClient = () => {
+const ReceiverClientHistory = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isUser, setIsUser] = useState<boolean>(false);
@@ -231,7 +231,7 @@ const ReceiverClient = () => {
     const getAllClients = async () => {
         setIsUser(true)
         await ClientService
-            .getAllReceiver()
+            .getAll()
             .then((res) => {
                 setIsUser(false)
                 return setClients(res.data);
@@ -274,7 +274,7 @@ const ReceiverClient = () => {
                                         <td>Counting mechanism</td>
                                         <td>Serial Number</td>
                                         <td>Status</td>
-                                        <td>Action</td>
+                                        {/*<td>Action</td>*/}
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -291,16 +291,16 @@ const ReceiverClient = () => {
                                                 <td>{item.countingMechanism}</td>
                                                 <td>{item.serialNumber}</td>
                                                 <td>{item.status}</td>
-                                                <td>
-                                                    <button
-                                                        onClick={() => handleOpenModal(item)}
-                                                        className="btn "><img src={updateIcon} alt=""/>
-                                                    </button>
-                                                    <button
-                                                        onClick={() => handleDelete(item.id)}
-                                                        className="btn "><img src={deleteIcon} alt=""/>
-                                                    </button>
-                                                </td>
+                                                {/*<td>*/}
+                                                {/*    <button*/}
+                                                {/*        onClick={() => handleOpenModal(item)}*/}
+                                                {/*        className="btn "><img src={updateIcon} alt=""/>*/}
+                                                {/*    </button>*/}
+                                                {/*    <button*/}
+                                                {/*        onClick={() => handleDelete(item.id)}*/}
+                                                {/*        className="btn "><img src={deleteIcon} alt=""/>*/}
+                                                {/*    </button>*/}
+                                                {/*</td>*/}
                                             </tr>
                                         ))}
                                     </tbody>
@@ -637,4 +637,4 @@ const ReceiverClient = () => {
     );
 };
 
-export default ReceiverClient;
+export default ReceiverClientHistory;

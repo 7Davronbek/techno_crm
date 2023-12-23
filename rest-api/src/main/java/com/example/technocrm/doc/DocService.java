@@ -1,5 +1,6 @@
 package com.example.technocrm.doc;
 
+import com.example.technocrm.custom.CustomConfig;
 import com.example.technocrm.doc.dto.DocCreateDto;
 import com.example.technocrm.doc.dto.DocDtoMapper;
 import com.example.technocrm.doc.dto.DocResponseDto;
@@ -17,49 +18,57 @@ import java.util.Optional;
 public class DocService {
     private final DocRepository docRepository;
     private final DocDtoMapper docDtoMapper;
+    private final CustomConfig customConfig;
 
-    public void create(DocCreateDto docCreateDto) {
+    public void create(DocCreateDto docCreateDto, Integer id) {
+        if (customConfig.isAdmin(id) || customConfig.isStandard(id)) {
+            Doc doc = new Doc(
+                    null,
+                    docCreateDto.getImageUrl1(),
+                    docCreateDto.getName(),
+                    null
+            );
 
-        Doc doc = new Doc(
-                null,
-                docCreateDto.getImageUrl1(),
-                docCreateDto.getImageUrl2(),
-                docCreateDto.getImageUrl3(),
-                docCreateDto.getImageUrl4(),
-                null
-        );
-
-        docRepository.save(doc);
+            docRepository.save(doc);
+        }
     }
 
-    public List<DocResponseDto> getAll() {
-        return docDtoMapper.toResponse(docRepository.findAll());
+    public List<DocResponseDto> getAll(Integer id) {
+        if (customConfig.isAdmin(id) || customConfig.isStandard(id)) {
+            return docDtoMapper.toResponse(docRepository.findAll());
+        }
+        return null;
     }
 
-    public DocResponseDto get(Integer docId) {
-        Optional<Doc> docOptional = docRepository
-                .findById(docId);
+    public DocResponseDto get(Integer docId, Integer id) {
+        if (customConfig.isAdmin(id) || customConfig.isStandard(id)) {
+            Optional<Doc> docOptional = docRepository
+                    .findById(docId);
 
-        return docOptional
-                .map(docDtoMapper::toResponse)
-                .orElseThrow();
-
-    }
-
-    public void update(Integer docId, DocCreateDto docCreateDto) {
-
-        Doc doc = docRepository
-                .findById(docId)
-                .orElseThrow();
-
-        doc.setImageUrl1(doc.getImageUrl1());
-        doc.setImageUrl2(doc.getImageUrl2());
-        doc.setImageUrl3(doc.getImageUrl3());
-        doc.setImageUrl4(doc.getImageUrl4());
+            return docOptional
+                    .map(docDtoMapper::toResponse)
+                    .orElseThrow();
+        }
+        return null;
 
     }
 
-    public void delete(Integer docId) {
-        docRepository.deleteById(docId);
+    public void update(Integer docId, DocCreateDto docCreateDto, Integer id) {
+        if (customConfig.isAdmin(id) || customConfig.isStandard(id)) {
+
+            Doc doc = docRepository
+                    .findById(docId)
+                    .orElseThrow();
+
+            doc.setImageUrl1(docCreateDto.getImageUrl1());
+            doc.setName(docCreateDto.getName());
+
+        }
+    }
+
+    public void delete(Integer docId, Integer id) {
+        if (customConfig.isAdmin(id) || customConfig.isStandard(id)) {
+            docRepository.deleteById(docId);
+        }
     }
 }

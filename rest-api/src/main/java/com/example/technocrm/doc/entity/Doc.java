@@ -14,10 +14,12 @@ public class Doc {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(length = 8192)
     private String imageUrl1;
-    private String imageUrl2;
-    private String imageUrl3;
-    private String imageUrl4;
+    private String name;
+//    private String imageUrl2;
+//    private String imageUrl3;
+//    private String imageUrl4;
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;

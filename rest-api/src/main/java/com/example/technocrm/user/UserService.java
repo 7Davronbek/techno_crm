@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @Transactional
@@ -29,6 +30,7 @@ public class UserService {
                     userCreateDto.getPassword(),
                     userCreateDto.getRole(),
                     LocalDate.now(),
+                    null,
                     true
             );
 
@@ -38,7 +40,7 @@ public class UserService {
     }
 
     public List<UserResponseDto> getAll(Integer id) {
-        if(customConfig.isAdmin(id)) {
+        if(customConfig.isAdmin(id) || customConfig.isReceiver(id)) {
             return userDtoMapper.toResponse(userRepository.findAll());
         }
         return Collections.emptyList();
@@ -56,6 +58,7 @@ public class UserService {
                 user.getUsername(),
                 user.getRole(),
                 user.getCreated(),
+                user.getStatus(),
                 user.isActive()
         );
     }
@@ -75,19 +78,22 @@ public class UserService {
     }
 
     public void delete(Integer userId, Integer id) {
-        if (customConfig.isAdmin(id)) {
+        if (customConfig.isAdmin(id) || customConfig.isReceiver(id)) {
             userRepository.deleteById(userId);
         }
     }
 
     public LoginResponseDto login(LoginDto loginDto) {
         User user = userRepository.findUserByUsername(loginDto.getUsername()).orElseThrow();
-        return new LoginResponseDto(
-                user.getId(),
-                user.getFullName(),
-                user.getUsername(),
-                user.getRole(),
-                user.getCreated()
-        );
+        if(user.isActive()) {
+            return new LoginResponseDto(
+                    user.getId(),
+                    user.getFullName(),
+                    user.getUsername(),
+                    user.getRole(),
+                    user.getCreated()
+            );
+        }
+        throw new NoSuchElementException("User not found");
     }
 }

@@ -1,12 +1,12 @@
 import plus from "@/assets/plus.svg";
-import {CONFIG} from "@/constants"
-// import document from "@/assets/document.svg";
 import closeEye from "@/assets/closeEye.svg";
 import openEye from "@/assets/opneEye.svg";
-import React, {useEffect, useState} from "react";
+import  {useEffect, useState} from "react";
 import http from "../../config";
 import {toast} from "react-toastify";
 import UserService from "../../service/UserService.tsx";
+import updateIcon from "@/assets/update.svg"
+import deleteIcon from "@/assets/delete.svg"
 import IUserType from "../../types/IUserType.ts";
 import {Loader} from "../../components/Loader.tsx";
 
@@ -18,16 +18,18 @@ const AdminUser = () => {
 
 
     const [isPassword, setIsPassword] = useState<boolean>(true);
-    const [active, setActive] = useState<boolean | undefined>(true);
+    const [active, setActive] = useState<boolean >(true);
     const [username, setUsername] = useState<string>("");
     const [fullName, setFullName] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [role, setRole] = useState<string>("ROLE_RECEIVER");
+    const [id, setId] = useState<number>()
 
     const [users, setUsers] = useState<IUserType[]>([]);
 
     const createUser = async (e: { preventDefault: () => void; }) => {
         setIsLoading(true)
+        setIsUpdate(false)
         e.preventDefault();
         await http.post("/user", {
             username,
@@ -63,31 +65,15 @@ const AdminUser = () => {
                 setIsUser(false)
                 toast.error(e);
             });
-        }
+    }
 
-        const getAllUsers = async () => {
-            setIsUser(true)
-            await UserService
-                .getAll()
-                .then((res) => {
-                    setIsUser(false)
-                    return setUsers(res.data);
-                })
-                .catch((e: Error) => {
-                    setIsUser(false)
-                    toast.error(e);
-                });
-        }
-
-    const updateUser = async (user: IUserType, id: number | undefined) => {
+    const getAllUsers = async () => {
         setIsUser(true)
-        await UserService.update(user, id)
-            .then(() => {
+        await UserService
+            .getAll()
+            .then((res) => {
                 setIsUser(false)
-                getAllUsers()
-
-                setIsUpdate(false)
-                toast.update(user.username + " has been updated")
+                return setUsers(res.data);
             })
             .catch((e: Error) => {
                 setIsUser(false)
@@ -95,7 +81,31 @@ const AdminUser = () => {
             });
     }
 
-    const handleModal = (user: IUserType) => {
+    const updateUser = async () => {
+        setIsUser(true)
+        const data: IUserType ={
+            fullName,
+            username,
+            password,
+            role,
+            active
+        }
+        await UserService.update(data, id)
+            .then(() => {
+                setIsUser(false)
+                getAllUsers()
+                setIsOpen(false)
+
+                setIsUpdate(false)
+                toast.update("User has been updated")
+            })
+            .catch((e: Error) => {
+                setIsUser(false)
+                toast.error(e);
+            });
+    }
+
+    const handleOpenModal = (user: IUserType) => {
         setIsOpen(true)
         setIsUpdate(true)
 
@@ -104,13 +114,13 @@ const AdminUser = () => {
         setUsername(user.username)
         setFullName(user.fullName)
         setActive(user.active)
-
-        // updateUser(user, user.id)
+        setId(user.id)
     }
 
     const handleClose = () => {
         setIsOpen(false);
         setIsUpdate(false);
+
         setUsername("")
         setPassword("")
         setFullName("")
@@ -166,11 +176,11 @@ const AdminUser = () => {
                                                 <td>{item.created}</td>
                                                 <td>{item.role}</td>
                                                 <td>
-                                                    <button onClick={() => handleModal(item)}
-                                                            className="btn myBtn btn-update">Update
+                                                    <button onClick={() => handleOpenModal(item)}
+                                                            className="btn "><img src={updateIcon} alt=""/>
                                                     </button>
                                                     <button onClick={() => handleDelete(item.id)}
-                                                            className="btn myBtn btn-delete">Delete
+                                                            className="btn "><img src={deleteIcon} alt=""/>
                                                     </button>
                                                 </td>
                                             </tr>
@@ -178,14 +188,6 @@ const AdminUser = () => {
                                     </tbody>
                                 </table>
                             )}
-
-                            {/*<DataGrid*/}
-                            {/*    rows={rows}*/}
-                            {/*    columns={columns}*/}
-                            {/*    pageSize={5}*/}
-                            {/*    rowsPerPageOptions={[5]}*/}
-                            {/*    disableSelectionOnClick*/}
-                            {/*/>*/}
                         </div>
                     </div>
                 </div>
@@ -216,9 +218,10 @@ const AdminUser = () => {
                                     <>
                                         <label className="mb-2" htmlFor="active">Active</label>
 
-                                        <input value={active && "checked"}
+                                        <input value={active}
+                                               checked={active}
                                                className="form-check d-flex mb-3"
-                                               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setActive(e.target.value)}
+                                               onChange={e => setActive(e.target.checked)}
                                                type="checkbox" name="" id="active"/>
                                     </>
                                 )}
@@ -257,12 +260,13 @@ const AdminUser = () => {
                                 )}
 
                                 <label className="mb-2" htmlFor="role">Role</label>
-                                <select defaultValue="receiver" onChange={e => setRole(e.target.value)} id="role"
+                                <select value={role} onChange={e => setRole(e.target.value)} id="role"
                                         className="form-control">
                                     <option value="ROLE_RECEIVER">Receiver</option>
+                                    <option value="ROLE_SPECIALIST">Specialist</option>
                                     <option value="ROLE_ACCOUNTANT">Accountant</option>
-                                    <option value="ROLE_STAFF">Staff</option>
-                                    <option value="ROLE_STANDARD">Uz Standard</option>
+                                    {/*<option value="ROLE_DOC">Docs</option>*/}
+                                    {/*<option value="ROLE_STANDARD">Uz Standard</option>*/}
                                     <option value="ROLE_ADMIN">Admin</option>
                                 </select>
                             </div>
@@ -272,6 +276,7 @@ const AdminUser = () => {
                             {isUpdate ?
                                 <button
                                     disabled={isLoading}
+                                    onClick={updateUser}
                                     type="button"
                                     className="btn myBtn d-block w-100"
                                 >

@@ -11,8 +11,9 @@ import lombok.NoArgsConstructor;
 public class DocResponseDto {
     private Integer id;
     private String imageUrl1;
-    private String imageUrl2;
-    private String imageUrl3;
-    private String imageUrl4;
+    private String name;
+//    private String imageUrl2;
+//    private String imageUrl3;
+//    private String imageUrl4;
     private Client client;
 }

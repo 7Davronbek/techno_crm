@@ -1,7 +1,7 @@
 import logo from "@/assets/logo.svg";
 import closeEye from "@/assets/closeEye.svg";
 import openEye from "@/assets/opneEye.svg";
-import {useRef, useState} from "react";
+import {useState} from "react";
 
 // import {PDFExport, savePDF} from "@progress/kendo-react-pdf";
 import "@/style/second.scss";
@@ -40,7 +40,22 @@ const Main = () => {
                 setIsLoading(false)
                 localStorage.setItem(TOKEN, res.data.id)
                 localStorage.setItem(USER_ROLE, res.data.role);
-                navigate("/admin-monitoring", {replace: true})
+                if(res.data.role === "ROLE_ADMIN") {
+                    navigate("/admin-monitoring", {replace: true})
+                    window.location.reload();
+                } else if(res.data.role === "ROLE_RECEIVER"){
+                    navigate("/receiver-client", {replace: true})
+                    window.location.reload();
+                }else if(res.data.role === "ROLE_SPECIALIST"){
+                    navigate("/specialist-client", {replace: true})
+                    window.location.reload();
+                }else if(res.data.role === "ROLE_ACCOUNTANT"){
+                    navigate("/accountant-client", {replace: true})
+                    window.location.reload();
+                }else if(res.data.role === "ROLE_CLIENT"){
+                    navigate("/client-receiver", {replace: true})
+                    window.location.reload();
+                }
 
             }).catch(() => {
                 toast.error("Username or password is wrong.")
