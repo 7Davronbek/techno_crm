@@ -40,7 +40,7 @@ public class UserService {
     }
 
     public List<UserResponseDto> getAll(Integer id) {
-        if(customConfig.isAdmin(id) || customConfig.isReceiver(id)) {
+        if (customConfig.isAdmin(id) || customConfig.isReceiver(id)) {
             return userDtoMapper.toResponse(userRepository.findAll());
         }
         return Collections.emptyList();
@@ -72,7 +72,6 @@ public class UserService {
         user.setRole(userCreateDto.getRole());
         user.setUsername(userCreateDto.getUsername());
         user.setFullName(userCreateDto.getFullName());
-//        user.setPassword(userCreateDto.getPassword());
         user.setActive(userCreateDto.isActive());
 
     }
@@ -85,7 +84,7 @@ public class UserService {
 
     public LoginResponseDto login(LoginDto loginDto) {
         User user = userRepository.findUserByUsername(loginDto.getUsername()).orElseThrow();
-        if(user.isActive()) {
+        if (user.isActive()) {
             return new LoginResponseDto(
                     user.getId(),
                     user.getFullName(),

@@ -12,14 +12,6 @@ import java.util.List;
 public class ClientController {
     private final ClientService clientService;
 
-//    @PostMapping("/accountant/{userId}")
-//    public void accountant(
-//            @PathVariable Integer userId,
-//            @RequestHeader Integer id
-//    ) {
-//        clientService.accountant(userId, id);
-//    }
-
     @GetMapping("/receiver")
     public List<ClientResponseDto> getReceiver(
             @RequestHeader Integer id
@@ -40,13 +32,6 @@ public class ClientController {
     ) {
         return clientService.getAccountant(id);
     }
-
-//    @GetMapping("/staff")
-//    public List<ClientResponseDto> getStaff(
-//            @RequestHeader Integer id
-//    ) {
-//        return clientService.getStaff(id);
-//    }
 
     @GetMapping("/doc")
     public List<ClientResponseDto> getDoc(

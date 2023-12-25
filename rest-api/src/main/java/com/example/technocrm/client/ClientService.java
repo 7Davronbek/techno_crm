@@ -4,8 +4,6 @@ import com.example.technocrm.client.dto.*;
 import com.example.technocrm.client.entity.Client;
 import com.example.technocrm.client.entity.Status;
 import com.example.technocrm.custom.CustomConfig;
-import com.example.technocrm.doc.DocRepository;
-import com.example.technocrm.history.HistoryRepository;
 import com.example.technocrm.tool.ToolRepository;
 import com.example.technocrm.tool.entity.Tool;
 import com.example.technocrm.user.UserRepository;
@@ -30,20 +28,7 @@ public class ClientService {
     private final UserRepository userRepository;
     private final ToolRepository toolRepository;
     private final ClientDtoMapper clientDtoMapper;
-    private final DocRepository docRepository;
     private final CustomConfig customConfig;
-    private final HistoryRepository historyRepository;
-
-//    public void accountant(Integer userId, Integer id) {
-//        if (customConfig.isAdmin(id) || customConfig.isAccountant(id)) {
-//            Client client = clientRepository
-//                    .findById(userId)
-//                    .orElseThrow();
-//
-//            Status status = client.isPaid() ? Status.STAFF : Status.PAYMENT;
-//            client.setStatus(status);
-//        }
-//    }
 
     public void addTool(Integer clientId, ClientCreateToolDto clientCreateToolDto, Integer id) {
         if (customConfig.isAdmin(id) || customConfig.isAccountant(id)) {
@@ -194,13 +179,6 @@ public class ClientService {
         }
         return null;
     }
-
-//        public List<ClientResponseDto> getStaff(Integer id) {
-//            if (customConfig.isStaff(id) || customConfig.isAdmin(id)) {
-//                return clientDtoMapper.toResponse(clientRepository.findAllByStatus(Status.STAFF));
-//            }
-//            return null;
-//        }
 
     public List<ClientResponseDto> getDoc(Integer id) {
         if (customConfig.isDoc(id) || customConfig.isAdmin(id)) {
